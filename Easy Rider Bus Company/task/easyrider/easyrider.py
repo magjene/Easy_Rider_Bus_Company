@@ -116,3 +116,14 @@ next_stop: 1
 stop_type: 1
 a_time: 2
 """
+
+
+print(f'''
+Type and required field validation: 8 errors
+bus_id: 2
+stop_id: 1
+stop_name: 1
+next_stop: 1
+stop_type: 1
+a_time: 2
+''')
