@@ -118,6 +118,9 @@ a_time: 2
 """
 
 
+err = {'bus_id': [0, 'int'], 'stop_id': [0, 'int'], 'stop_name': [0, 'str'], 'next_stop': [0, 'int'],
+       'stop_type': [0, 'Let'], 'a_time': [0, 'time']}
+
 print(f'''
 Type and required field validation: 8 errors
 bus_id: 2
