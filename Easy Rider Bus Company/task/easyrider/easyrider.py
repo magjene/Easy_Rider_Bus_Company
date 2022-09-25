@@ -118,8 +118,15 @@ a_time: 2
 """
 
 
+from json import loads
+from sys import stdin
+
+
 err = {'bus_id': [0, 'int'], 'stop_id': [0, 'int'], 'stop_name': [0, 'str'], 'next_stop': [0, 'int'],
        'stop_type': [0, 'Let'], 'a_time': [0, 'time']}
+
+dict_json = loads('\n'.join(stdin.read().split('\n')))
+
 
 print(f'''
 Type and required field validation: 8 errors
