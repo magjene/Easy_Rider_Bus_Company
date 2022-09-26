@@ -241,9 +241,9 @@ for i in range(len(json_dict)):
         if val_e[1] == 'str':
             if not strings(key_e, key_j, val_j):
                 err_dict[key_e][0] += 1
-        # if val_e[1] == 'char':
-        #     if not char(key_e, key_j, val_j):
-        #         err_dict[key_e][0] += 1
+        if val_e[1] == 'char':
+            if not char(key_e, key_j, val_j):
+                err_dict[key_e][0] += 1
         # if val_e[1] == 'time':
         #     if not time(key_e, key_j, val_j[0]):
         #         err_dict[key_e][0] += 1
@@ -251,5 +251,10 @@ for i in range(len(json_dict)):
 
 print(f'''
 Type and required field validation: {err} errors
-{err_dict}
+bus_id: {err_dict['bus_id'][0]}
+stop_id: {err_dict['stop_id'][0]}
+stop_name: {err_dict['stop_name'][0]}
+next_stop: {err_dict['next_stop'][0]}
+stop_type: {err_dict['stop_type'][0]}
+a_time: {err_dict['a_time'][0]}
 ''')
