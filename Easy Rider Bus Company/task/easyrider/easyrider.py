@@ -122,18 +122,135 @@ from json import loads
 from sys import stdin
 
 
-err = {'bus_id': [0, 'int'], 'stop_id': [0, 'int'], 'stop_name': [0, 'str'], 'next_stop': [0, 'int'],
-       'stop_type': [0, 'Let'], 'a_time': [0, 'time']}
+err_dict = {'bus_id': [0, 'int'], 'stop_id': [0, 'int'], 'stop_name': [0, 'str'], 'next_stop': [0, 'int'],
+            'stop_type': [0, 'shar'], 'a_time': [0, 'time']}
 
-dict_json = loads('\n'.join(stdin.read().split('\n')))
+# json_dict = loads('\n'.join(stdin.read().split('\n')))
+
+
+s = '''[
+    {
+        "bus_id": 128,
+        "stop_id": 1,
+        "stop_name": "Prospekt Avenue",
+        "next_stop": 3,
+        "stop_type": "S",
+        "a_time": 8.12
+    },
+    {
+        "bus_id": 128,
+        "stop_id": 3,
+        "stop_name": "",
+        "next_stop": 5,
+        "stop_type": "",
+        "a_time": "08:19"
+    },
+    {
+        "bus_id": 128,
+        "stop_id": 5,
+        "stop_name": "Fifth Avenue",
+        "next_stop": 7,
+        "stop_type": "O",
+        "a_time": "08:25"
+    },
+    {
+        "bus_id": 128,
+        "stop_id": "7",
+        "stop_name": "Sesame Street",
+        "next_stop": 0,
+        "stop_type": "F",
+        "a_time": "08:37"
+    },
+    {
+        "bus_id": "",
+        "stop_id": 2,
+        "stop_name": "Pilotow Street",
+        "next_stop": 3,
+        "stop_type": "S",
+        "a_time": ""
+    },
+    {
+        "bus_id": 256,
+        "stop_id": 3,
+        "stop_name": "Elm Street",
+        "next_stop": 6,
+        "stop_type": "",
+        "a_time": "09:45"
+    },
+    {
+        "bus_id": 256,
+        "stop_id": 6,
+        "stop_name": "Sunset Boulevard",
+        "next_stop": 7,
+        "stop_type": "",
+        "a_time": "09:59"
+    },
+    {
+        "bus_id": 256,
+        "stop_id": 7,
+        "stop_name": "Sesame Street",
+        "next_stop": "0",
+        "stop_type": "F",
+        "a_time": "10:12"
+    },
+    {
+        "bus_id": 512,
+        "stop_id": 4,
+        "stop_name": "Bourbon Street",
+        "next_stop": 6,
+        "stop_type": "S",
+        "a_time": "08:13"
+    },
+    {
+        "bus_id": "512",
+        "stop_id": 6,
+        "stop_name": "Sunset Boulevard",
+        "next_stop": 0,
+        "stop_type": 5,
+        "a_time": "08:16"
+    }
+]'''
+json_dict = loads(s)
+
+
+def integer(k_j, k_e, v_j):
+    return k_j == k_e and isinstance(v_j, int)
+
+
+def strings(k_j, k_e, v_j):
+    return k_j == k_e and v_j != '' and isinstance(v_j, str)
+
+
+def char(k_j, k_e, v_j):
+    return (k_j == k_e and v_j == '') or (k_j == k_e and isinstance(v_j, str) and len(v_j) == 1)
+
+
+def time(k_j, k_e, v_j):
+    return k_j == k_e and len(v_j) == 5 and isinstance(v_j[:2], int) and isinstance(v_j[3:], int) and val_j[2] == ':' \
+           and val_j[0] < 6 and val_j[3] < 6
+
+
+err = 0
+
+for i in range(len(json_dict)):
+    for j, e in zip(json_dict[i].items(), err_dict.items()):
+        key_e, val_e, key_j, val_j = *e, *j
+        if val_e[1] == 'int':
+            if not integer(key_e, key_j, val_j):
+                err_dict[key_e][0] += 1
+
+        # if val_e[1] == 'str':
+        #     if not strings(key_e, key_j, val_j):
+        #         err_dict[key_e][0] += 1
+        # if val_e[1] == 'char':
+        #     if not char(key_e, key_j, val_j):
+        #         err_dict[key_e][0] += 1
+        # if val_e[1] == 'time':
+        #     if not time(key_e, key_j, val_j[0]):
+        #         err_dict[key_e][0] += 1
 
 
 print(f'''
-Type and required field validation: 8 errors
-bus_id: 2
-stop_id: 1
-stop_name: 1
-next_stop: 1
-stop_type: 1
-a_time: 2
+Type and required field validation: {err} errors
+{err_dict}
 ''')
