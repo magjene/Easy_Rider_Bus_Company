@@ -123,7 +123,7 @@ s = input()
 json_list = loads(s)
 for json_dict in json_list:
     for key, val in err_dict.items():
-        if not re.match(val[1], str(json_dict[key])):
+        if not re.match(val[1], json_dict[key]):
             err_dict[key][0] += 1
 
 err = sum([val[0] for val in err_dict.values()])
