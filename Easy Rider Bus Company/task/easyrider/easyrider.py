@@ -126,20 +126,11 @@ s = '[{"bus_id": 128,"stop_id": 1,"stop_name": "Prospekt Avenue","next_stop": 3,
 # s = input()
 json_list = loads(s)
 for json_dict in json_list:
-    for key, val in err_dict.items():
-        if val[1] == 'int':
-            if not isinstance(json_dict[key], int):
-                err_dict[key][0] += 1
-        else:
-            if not re.match(val[1], json_dict[key]):
-                err_dict[key][0] += 1
+    for key in json_dict:
+        if key == 'bus_id':
+            val = json_dict['bus_id']
+            bus_stop[str(val)] += 1
 
-# err = sum([val[0] for val in err_dict.values()])
-# print(f'Format validation: {err} errors')
-# for key, val in err_dict.items():
-#     print(f'{key}: {val[0]}')
-print('''
-Line names and number of stops:
-bus_id: 128, stops: 4
-bus_id: 256, stops: 4
-bus_id: 512, stops: 2''')
+print('Line names and number of stops:')
+for key, val in bus_stop.items():
+    print(f'bus_id: {key}, stops: {val}')
