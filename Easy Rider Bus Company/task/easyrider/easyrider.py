@@ -128,16 +128,22 @@ def strings(k_j, k_e, v_j):
     return k_j == k_e and v_j != '' and isinstance(v_j, str)
 
 
+def stop_name(k_j, k_e, v_j):
+    return k_j == k_e and v_j != '' and isinstance(v_j, str) and ' ' in v_j \
+           and v_j.split()[0].istitle() and v_j.split()[1] in ['Road', 'Avenue', 'Boulevard', 'Street']
+
+
 def char(k_j, k_e, v_j):
     return k_j == k_e and v_j in ['', 'S', 'O', 'F']
 
 
 def time(k_j, k_e, v_j):
     return k_j == k_e and isinstance(v_j, str) and len(v_j) == 5 and v_j[:2].isdecimal() and v_j[3:].isdecimal() \
-           and val_j[2] == ':' and int(val_j[0]) < 6 and int(val_j[3]) < 6
+           and val_j[2] == ':' and int(val_j[0]) < 3 and int(val_j[0:2]) < 25 \
+           and int(val_j[3:5]) < 60
 
 
-err_dict = {'bus_id': [0, 'int'], 'stop_id': [0, 'int'], 'stop_name': [0, 'str'], 'next_stop': [0, 'int'],
+err_dict = {'bus_id': [0, 'int'], 'stop_id': [0, 'int'], 'stop_name': [0, 'stop_name'], 'next_stop': [0, 'int'],
             'stop_type': [0, 'char'], 'a_time': [0, 'time']}
 
 s = '[{"bus_id": 128, "stop_id": 1, "stop_name": "Prospekt Av.", "next_stop": 3, "stop_type": "S", "a_time": "08:12"}, {"bus_id": 128, "stop_id": 3, "stop_name": "Elm Street", "next_stop": 5, "stop_type": "", "a_time": "8:19"}, {"bus_id": 128, "stop_id": 5, "stop_name": "Fifth Avenue", "next_stop": 7, "stop_type": "OO", "a_time": "08:25"}, {"bus_id": 128, "stop_id": 7, "stop_name": "Sesame Street", "next_stop": 0, "stop_type": "F", "a_time": "08:77"}, {"bus_id": 256, "stop_id": 2, "stop_name": "Pilotow Street", "next_stop": 3, "stop_type": "S", "a_time": "09:20"}, {"bus_id": 256, "stop_id": 3, "stop_name": "Elm", "next_stop": 6, "stop_type": "", "a_time": "09:45"}, {"bus_id": 256, "stop_id": 6, "stop_name": "Sunset Boulevard", "next_stop": 7, "stop_type": "A", "a_time": "09:59"}, {"bus_id": 256, "stop_id": 7, "stop_name": "Sesame Street", "next_stop": 0, "stop_type": "F", "a_time": "10.12"}, {"bus_id": 512, "stop_id": 4, "stop_name": "bourbon street", "next_stop": 6, "stop_type": "S", "a_time": "38:13"}, {"bus_id": 512, "stop_id": 6, "stop_name": "Sunset Boulevard", "next_stop": 0, "stop_type": "F", "a_time": "08:16"}]'
@@ -151,6 +157,9 @@ for json_dict in json_list:
                 err_dict[key_e][0] += 1
         if val_e[1] == 'str':
             if not strings(key_e, key_j, val_j):
+                err_dict[key_e][0] += 1
+        if val_e[1] == 'stop_name':
+            if not stop_name(key_e, key_j, val_j):
                 err_dict[key_e][0] += 1
         if val_e[1] == 'char':
             if not char(key_e, key_j, val_j):
