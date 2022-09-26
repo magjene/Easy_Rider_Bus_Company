@@ -161,10 +161,7 @@ for json_dict in json_list:
 
 err = sum([val[0] for val in err_dict.values()])
 print(f'''
-Type and required field validation: {err} errors
-bus_id: {err_dict['bus_id'][0]}
-stop_id: {err_dict['stop_id'][0]}
+Format validation: {err} errors
 stop_name: {err_dict['stop_name'][0]}
-next_stop: {err_dict['next_stop'][0]}
 stop_type: {err_dict['stop_type'][0]}
 a_time: {err_dict['a_time'][0]}''')
