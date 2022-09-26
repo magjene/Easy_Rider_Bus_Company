@@ -159,7 +159,7 @@ for json_dict in json_list:
             if not time(key_e, key_j, val_j):
                 err_dict[key_e][0] += 1
 
-err = sum([val[0] for val in err_dict.values()])
+err = sum([err_dict['stop_name'][0], err_dict['stop_type'][0], err_dict['a_time'][0]])
 print(f'''
 Format validation: {err} errors
 stop_name: {err_dict['stop_name'][0]}
