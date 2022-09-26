@@ -127,11 +127,8 @@ bus_stop = {}
 s = input()
 json_list = loads(s)
 for json_dict in json_list:
-    for key in json_dict:
-        if key == 'bus_id':
-            val = str(json_dict['bus_id'])
-            bus_stop.setdefault(val, 0)
-            bus_stop[val] += 1
+    bus_stop.setdefault(json_dict['bus_id'], 0)
+    bus_stop[json_dict['bus_id']] += 1
 
 print('Line names and number of stops:')
 for key, val in bus_stop.items():
