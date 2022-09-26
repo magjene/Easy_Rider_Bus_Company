@@ -230,8 +230,6 @@ def time(k_j, k_e, v_j):
            and val_j[0] < 6 and val_j[3] < 6
 
 
-err = 0
-
 for i in range(len(json_dict)):
     for j, e in zip(json_dict[i].items(), err_dict.items()):
         key_e, val_e, key_j, val_j = *e, *j
@@ -248,7 +246,7 @@ for i in range(len(json_dict)):
         #     if not time(key_e, key_j, val_j[0]):
         #         err_dict[key_e][0] += 1
 
-
+err = sum([val[0] for val in err_dict.values()])
 print(f'''
 Type and required field validation: {err} errors
 bus_id: {err_dict['bus_id'][0]}
