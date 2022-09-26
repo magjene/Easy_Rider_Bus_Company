@@ -226,8 +226,8 @@ def char(k_j, k_e, v_j):
 
 
 def time(k_j, k_e, v_j):
-    return k_j == k_e and len(v_j) == 5 and isinstance(v_j[:2], int) and isinstance(v_j[3:], int) and val_j[2] == ':' \
-           and val_j[0] < 6 and val_j[3] < 6
+    return k_j == k_e and isinstance(v_j, str) and len(v_j) == 5 and v_j[:2].isdecimal() and v_j[3:].isdecimal() \
+           and val_j[2] == ':' and int(val_j[0]) < 6 and int(val_j[3]) < 6
 
 
 for i in range(len(json_dict)):
@@ -242,9 +242,9 @@ for i in range(len(json_dict)):
         if val_e[1] == 'char':
             if not char(key_e, key_j, val_j):
                 err_dict[key_e][0] += 1
-        # if val_e[1] == 'time':
-        #     if not time(key_e, key_j, val_j[0]):
-        #         err_dict[key_e][0] += 1
+        if val_e[1] == 'time':
+            if not time(key_e, key_j, val_j):
+                err_dict[key_e][0] += 1
 
 err = sum([val[0] for val in err_dict.values()])
 print(f'''
