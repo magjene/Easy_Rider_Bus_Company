@@ -238,10 +238,9 @@ for i in range(len(json_dict)):
         if val_e[1] == 'int':
             if not integer(key_e, key_j, val_j):
                 err_dict[key_e][0] += 1
-
-        # if val_e[1] == 'str':
-        #     if not strings(key_e, key_j, val_j):
-        #         err_dict[key_e][0] += 1
+        if val_e[1] == 'str':
+            if not strings(key_e, key_j, val_j):
+                err_dict[key_e][0] += 1
         # if val_e[1] == 'char':
         #     if not char(key_e, key_j, val_j):
         #         err_dict[key_e][0] += 1
