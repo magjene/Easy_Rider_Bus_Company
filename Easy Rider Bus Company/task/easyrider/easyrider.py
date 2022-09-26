@@ -130,7 +130,7 @@ def strings(k_j, k_e, v_j):
 
 
 def char(k_j, k_e, v_j):
-    return (k_j == k_e and v_j == '') or (k_j == k_e and isinstance(v_j, str) and len(v_j) == 1)
+    return k_j == k_e and v_j in ['', 'S', 'O', 'F']
 
 
 def time(k_j, k_e, v_j):
