@@ -123,7 +123,7 @@ from sys import stdin
 
 
 err_dict = {'bus_id': [0, 'int'], 'stop_id': [0, 'int'], 'stop_name': [0, 'str'], 'next_stop': [0, 'int'],
-            'stop_type': [0, 'shar'], 'a_time': [0, 'time']}
+            'stop_type': [0, 'char'], 'a_time': [0, 'time']}
 
 # json_dict = loads('\n'.join(stdin.read().split('\n')))
 
